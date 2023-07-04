@@ -1,0 +1,8 @@
+[requires]
+range-v3/0.12.0
+boost/1.82.0
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
