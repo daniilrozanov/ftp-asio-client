@@ -7,7 +7,7 @@
 
 namespace ftp {
 
-status int_to_status(int i)
+status int_to_status(int i) noexcept
 {
   switch (static_cast<status>(i))
   {
@@ -74,7 +74,7 @@ status int_to_status(int i)
   return status::unknown;
 }
 
-status_class to_status_class(status s)
+status_class to_status_class(status s) noexcept
 {
   switch (static_cast<unsigned>(s) / 100)
   {
@@ -88,9 +88,9 @@ status_class to_status_class(status s)
   return status_class::unknown;
 }
 
-status_class to_status_class(unsigned s) { return to_status_class(int_to_status(s)); }
+status_class to_status_class(unsigned s) noexcept { return to_status_class(int_to_status(s)); }
 
-status_group to_status_group(status s)
+status_group to_status_group(status s) noexcept
 {
   if (s == status::unknown)
     return status_group::unknown;
@@ -107,7 +107,7 @@ status_group to_status_group(status s)
   return status_group::unknown;
 }
 
-status_group to_status_group(unsigned s) { return to_status_group(int_to_status(s)); }
+status_group to_status_group(unsigned s) noexcept { return to_status_group(int_to_status(s)); }
 
 }  // namespace ftp
 
