@@ -7,7 +7,7 @@
 
 namespace ftp {
 
-status int_to_status(int i) noexcept
+status int_to_status(unsigned i) noexcept
 {
   switch (static_cast<status>(i))
   {
