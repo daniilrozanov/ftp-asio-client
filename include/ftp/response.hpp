@@ -3,11 +3,18 @@
 
 #include <ftp/status.hpp>
 #include <string>
+#include <string_view>
 
 namespace ftp {
 
+namespace detail {
+template <typename Executor>
+class connection_base;
+}
+
 class response
 {
+  response();
   response(const status s, const std::string& message);
   response(unsigned s, const std::string& message);
   response(const status s, std::string&& message);
@@ -18,14 +25,25 @@ class response
   status status() const noexcept;
   status_class status_class() const noexcept;
   status_group status_group() const noexcept;
-  const std::string& message() const noexcept;
+  const std::string_view message() const noexcept;
   bool has_error() const noexcept;
 
+  template <typename U>
+  friend class detail::connection_base;
+
 private:
-  const enum status s_;
-  const std::string message_;
+  void clear();
+  bool build_self();
+
+  enum status s_;
+  std::string_view message_;
+  std::string data_;
 };
 
 }  // namespace ftp
+
+#ifdef FTP_HEADER_ONLY
+#include <ftp/impl/response.cpp>
+#endif  // DEBUG
 
 #endif  // !FTP_RESPONCE_HPP
