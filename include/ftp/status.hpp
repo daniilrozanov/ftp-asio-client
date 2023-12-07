@@ -95,15 +95,15 @@ enum class status_group : unsigned
 
 };
 
-status int_to_status(unsigned i) noexcept;
+constexpr status int_to_status(unsigned i) noexcept;
 
-status_class to_status_class(unsigned s) noexcept;
+constexpr status_class to_status_class(unsigned s) noexcept;
 
-status_class to_status_class(status s) noexcept;
+constexpr status_class to_status_class(status s) noexcept;
 
-status_group to_status_group(unsigned s) noexcept;
+constexpr status_group to_status_group(unsigned s) noexcept;
 
-status_group to_status_group(status s) noexcept;
+constexpr status_group to_status_group(status s) noexcept;
 
 }  // namespace ftp
 
