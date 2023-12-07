@@ -12,8 +12,6 @@
 #include <ftp/handshake_params.hpp>
 #include <ftp/response.hpp>
 
-#include <iostream>
-
 namespace ftp {
 
 namespace detail {
@@ -32,9 +30,7 @@ public:
     control_.connect(ep);
     net::read_until(control_, net::dynamic_buffer(null_buffer), "\r\n");
     execute("USER " + params.username(), r);
-    std::cout << "code=" << static_cast<int>(r.status()) << " msg=" << r.message() << std::endl;
     execute("PASS " + params.password(), r);
-    std::cout << "code=" << static_cast<int>(r.status()) << " msg=" << r.message() << std::endl;
   }
 
   void execute(const std::string& request, response& resp)
