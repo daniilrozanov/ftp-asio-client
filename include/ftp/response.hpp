@@ -14,6 +14,7 @@ class connection_base;
 
 class response
 {
+public:
   response();
   response(const status s, const std::string& message);
   response(unsigned s, const std::string& message);
