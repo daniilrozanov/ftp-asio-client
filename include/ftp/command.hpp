@@ -50,6 +50,7 @@ enum class cmd
   mkd,
   pwd,
   list,
+  nlst,
   // informational commands
   syst,
   stat,
@@ -64,6 +65,8 @@ constexpr std::string_view to_string(cmd c);
 constexpr cmd string_to_cmd(std::string_view c);
 
 constexpr cmd_group group_of_cmd(cmd c);
+
+constexpr bool has_preliminary_reply(cmd c);
 
 }  // namespace ftp
 

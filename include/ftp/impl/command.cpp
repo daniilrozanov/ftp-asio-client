@@ -40,6 +40,7 @@ constexpr std::string_view to_string(cmd c)
   case cmd::mkd: return "MKD"sv;
   case cmd::pwd: return "PWD"sv;
   case cmd::list: return "LIST"sv;
+  case cmd::nlst: return "NLST"sv;
   case cmd::site: return "SITE"sv;
   case cmd::syst: return "SYST"sv;
   case cmd::stat: return "STAT"sv;
@@ -88,7 +89,8 @@ constexpr cmd_group group_of_cmd(cmd c)
   case cmd::rmd:
   case cmd::mkd:
   case cmd::pwd:
-  case cmd::list: return cmd_group::file_action;
+  case cmd::list:
+  case cmd::nlst: return cmd_group::file_action;
 
   case cmd::syst:
   case cmd::stat:
@@ -100,6 +102,23 @@ constexpr cmd_group group_of_cmd(cmd c)
   case cmd::unknown: return cmd_group::unknown;
   }
 }
+
+constexpr bool has_preliminary_reply(cmd c)
+{
+  switch (c)
+  {
+  case cmd::rein:
+  case cmd::stor:
+  case cmd::stou:
+  case cmd::list:
+  case cmd::retr:
+  case cmd::nlst:
+  case cmd::appe: return true;
+  default: break;
+  }
+  return false;
+}
+
 }  // namespace ftp
 
 #endif  // !FTP_COMMAND_CPP
