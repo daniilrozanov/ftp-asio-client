@@ -2,39 +2,29 @@
 #define FTP_REQUEST_CPP
 
 #include "ftp/command.hpp"
-#include <string_view>
 #pragma once
 
 #include <ftp/request.hpp>
 
 namespace ftp {
 
-request::request() {}
+request::request() noexcept : c_(cmd::noop) {}
+request::request(cmd c) noexcept : c_(c) {}
+request::request(cmd c, const std::string& arg) : c_(c), arg_(arg) {}
 
-request::request(cmd c) { add_cmd(c); }
-
-request::request(cmd c, std::string_view arg) { add_cmd(c, arg); }
-
-std::string_view request::payload() const noexcept { return payload_; }
-
-const request::config& request::get_config() const noexcept { return cfg_; }
-
-request::config& request::get_config() noexcept { return cfg_; }
-
-void request::push(cmd c, std::string_view arg) { add_cmd(c, arg); }
-
-void request::add_cmd(cmd c, std::string_view arg)
+cmd request::get_cmd() const noexcept { return c_; }
+const std::string& request::get_arg() const noexcept { return arg_; }
+std::string request::payload() const
 {
-  payload_.append(to_string(c));
-  if (!arg.empty())
+  std::string payload;
+  payload.append(to_string(c_));
+  if (!arg_.empty())
   {
-    payload_.append(" ");
-    payload_.append(arg);
+    payload.append(" ");
+    payload.append(arg_);
   }
-  payload_.append("\r\n");
-  ++commands_;
-  if (has_preliminary_reply(c))
-    has_preliminary_ = true;
+  payload.append("\r\n");
+  return payload;
 }
 
 }  // namespace ftp

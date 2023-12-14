@@ -1,9 +1,8 @@
 #ifndef FTP_REQUEST_HPP
 #define FTP_REQUEST_HPP
 
-#pragma once
-
 #include <ftp/command.hpp>
+
 #include <string>
 
 namespace ftp {
@@ -11,30 +10,17 @@ namespace ftp {
 class request
 {
 public:
-  struct config
-  {
-    bool ignore_preliminary = true;
-    bool cancel_on_connection_lost = true;
-  };
+  request() noexcept;
+  request(cmd c) noexcept;
+  request(cmd c, const std::string& arg);
 
-  request();
-  request(cmd c);
-  request(cmd c, std::string_view arg);
-
-  const config& get_config() const noexcept;
-  config& get_config() noexcept;
-
-  std::string_view payload() const noexcept;
-
-  void push(cmd c, std::string_view arg);
+  cmd get_cmd() const noexcept;
+  const std::string& get_arg() const noexcept;
+  std::string payload() const;
 
 private:
-  void add_cmd(cmd c, std::string_view arg = {});
-
-  std::string payload_;
-  config cfg_;
-  int commands_ = 0;
-  bool has_preliminary_ = false;
+  cmd c_;
+  std::string arg_;
 };
 
 }  // namespace ftp

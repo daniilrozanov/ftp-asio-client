@@ -1,6 +1,8 @@
 #ifndef FTP_RESPONSE_HPP
 #define FTP_RESPONSE_HPP
 
+#pragma once
+
 #include <ftp/status.hpp>
 #include <string>
 #include <string_view>
@@ -9,7 +11,7 @@ namespace ftp {
 
 namespace detail {
 template <typename Executor>
-class connection_base;
+class command_connection;
 }
 
 class response
@@ -30,7 +32,7 @@ public:
   bool has_error() const noexcept;
 
   template <typename U>
-  friend class detail::connection_base;
+  friend class detail::command_connection;
 
 private:
   void clear();
@@ -47,4 +49,4 @@ private:
 #include <ftp/impl/response.cpp>
 #endif  // DEBUG
 
-#endif  // !FTP_RESPONCE_HPP
+#endif  // !FTP_RESPONSE_HPP
