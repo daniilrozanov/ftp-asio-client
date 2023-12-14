@@ -65,10 +65,9 @@ constexpr cmd_group group_of_cmd(cmd c)
   case cmd::acct:
   case cmd::cwd:
   case cmd::cdup:
-  case cmd::smnt: return cmd_group::login;
-
+  case cmd::smnt:
   case cmd::quit:
-  case cmd::rein: return cmd_group::logout;
+  case cmd::rein: return cmd_group::access_control;
 
   case cmd::port:
   case cmd::pasv:

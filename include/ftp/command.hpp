@@ -8,8 +8,7 @@ namespace ftp {
 enum class cmd_group
 {
   unknown = 0,
-  login,
-  logout,
+  access_control,
   transfer_parameters,
   file_action,
   informational,
@@ -19,14 +18,13 @@ enum class cmd_group
 enum class cmd
 {
   unknown = 0,
-  // login
+  // access control
   user,
   pass,
   acct,
   cwd,
   cdup,
   smnt,
-  // logout
   quit,
   rein,
   // transfer parameters
